@@ -1,0 +1,2 @@
+Instead of using Google's Gemini API, use a local Ollama model, e.g. llama3.1
+
