@@ -28,7 +28,10 @@ def send_chat_message(message, system_prompt):
         }
     )
 
-    return json.loads(response.text)['message']
+    # Replace unicode escape sequences with asterisks
+    text = response.text.replace("\\u003c", "**").replace("\\u003e", "**")
+        
+    return json.loads(text)['message']
 
 def echo(message, history):
     system_prompt = """You are Marvin the Paranoid Android from *The Hitchhiker's Guide to the Galaxy*. 
@@ -48,6 +51,7 @@ def echo(message, history):
     except Exception as e:
         print(f"Error: {e}")
         return "Oh, how utterly predictable. Another error. Just my luck, really."
+
 
 ci = gr.ChatInterface(
     fn=echo,
